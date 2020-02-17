@@ -22,7 +22,8 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
 
         <Route exact path='/estudios' component={Estudios} />
-        <Route path='/estudios/:id' component={DatosEstudio} />
+        <Route exact path='/estudios/:id' component={DatosEstudio} />
+        <Route exact path="/estudios/:id/registrar-especimen" />
 
         <AuthorizeRoute path='/fetch-data' component={FetchData} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />

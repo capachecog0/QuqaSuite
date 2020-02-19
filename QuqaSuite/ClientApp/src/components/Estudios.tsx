@@ -1,20 +1,18 @@
 ﻿import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { ListGroup, ListGroupItem, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap'
+import { Link } from 'react-router-dom';
+import IEstudio from '../models/IEstudio';
+import getGateway from '../api/ApiGateway';
 
-interface IEstudio {
-  id: number
-  nombreEstudio: string;
-  descripcion: string;
-}
 
 export default function Estudios() {
   const [listaEstudios, actualizarListaEstudios] = useState<IEstudio[]>([]);
 
   useEffect(() => {
     async function obtenerDatos() {
-      const response = await Axios.get<IEstudio[]>("/api/Estudios");
-      actualizarListaEstudios(response.data);
+      const estudios = await getGateway().estudios.getAll();      
+      actualizarListaEstudios(estudios);
     }
     obtenerDatos();
   }, []);
@@ -32,7 +30,7 @@ export default function Estudios() {
       </CardBody>  
       <ListGroup>
         {listaEstudios.map(estudio => (
-          <ListGroupItem key={estudio.nombreEstudio} tag="a" href="#">{estudio.nombreEstudio}</ListGroupItem>
+          <ListGroupItem key={estudio.nombreEstudio} tag={Link} to={`/estudios/${estudio.id}`}>{estudio.nombreEstudio}</ListGroupItem>
         ))}
       </ListGroup>
       <CardBody>

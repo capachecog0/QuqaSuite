@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Card, CardHeader, ListGroup, ListGroupItem } from 'reactstrap';
 
 interface IDatosEstudioParams {
@@ -24,14 +24,15 @@ export default function DatosEstudio() {
   const params = useParams<IDatosEstudioParams>();
 
   return (
-    <>
-    <span> Mostrando el estudio con id {params.id} </span>  
-    <Estudio {...estudioMock} ></Estudio> 
+    <>    
+      <Estudio id={parseInt(params.id)} {...estudioMock} ></Estudio> 
     </>
   );
 }
 
-function Estudio({ nombre, descripcion, numeroEspecimenes, areaMedicion }: IEstudio = estudioMock) {
+type EstudioProps = IEstudio & { id: number }
+
+function Estudio({ id, nombre, descripcion, numeroEspecimenes, areaMedicion }: EstudioProps) {
   
   return (
     <Container>
@@ -47,7 +48,7 @@ function Estudio({ nombre, descripcion, numeroEspecimenes, areaMedicion }: IEstu
               Continuar Estudio
             </CardHeader>
             <ListGroup>
-              <ListGroupItem tag="button" action color="info">
+              <ListGroupItem tag={Link} action color="info" to={`${id}/registrar-especimen`}>
                 Agregar espécimen
               </ListGroupItem>
               <ListGroupItem tag ="button" action color="info">

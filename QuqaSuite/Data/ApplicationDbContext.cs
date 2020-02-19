@@ -18,6 +18,9 @@ namespace QuqaSuite.Data
         {
         }
 
-        public DbSet<Estudio> Estudios { get; set; } = null!;
+        public DbSet<Estudio> Estudios { get; set; }
+        public DbSet<Arbol> Arboles { get; set; }
+        public DbSet<Especie> Especies { get; set; }
+        public DbSet<FotografiaArbol> FotografiaArboles { get; set; }
     }
 }

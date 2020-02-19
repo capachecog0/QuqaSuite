@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace QuqaSuite.Data.Migrations
+namespace QuqaSuite.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,6 +61,48 @@ namespace QuqaSuite.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Especies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreComun = table.Column<string>(maxLength: 50, nullable: true),
+                    NombreCientifico = table.Column<string>(maxLength: 200, nullable: true),
+                    FormulaBiomasa = table.Column<string>(maxLength: 1024, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Especies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Estudios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreEstudio = table.Column<string>(maxLength: 50, nullable: true),
+                    Descripcion = table.Column<string>(maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estudios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FotografiaArboles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FotografiaArboles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,6 +228,60 @@ namespace QuqaSuite.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Arboles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Macrodistrito = table.Column<string>(maxLength: 50, nullable: true),
+                    Distrito = table.Column<string>(maxLength: 50, nullable: true),
+                    Barrio = table.Column<string>(maxLength: 50, nullable: true),
+                    EspecieId = table.Column<int>(nullable: true),
+                    Altura = table.Column<double>(nullable: false),
+                    Dap = table.Column<double>(nullable: false),
+                    Biomasa = table.Column<double>(nullable: false),
+                    fotografiaArbolId = table.Column<int>(nullable: true),
+                    EstudioId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Arboles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Arboles_Especies_EspecieId",
+                        column: x => x.EspecieId,
+                        principalTable: "Especies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Arboles_Estudios_EstudioId",
+                        column: x => x.EstudioId,
+                        principalTable: "Estudios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Arboles_FotografiaArboles_fotografiaArbolId",
+                        column: x => x.fotografiaArbolId,
+                        principalTable: "FotografiaArboles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arboles_EspecieId",
+                table: "Arboles",
+                column: "EspecieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arboles_EstudioId",
+                table: "Arboles",
+                column: "EstudioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arboles_fotografiaArbolId",
+                table: "Arboles",
+                column: "fotografiaArbolId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -250,6 +346,9 @@ namespace QuqaSuite.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Arboles");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -269,6 +368,15 @@ namespace QuqaSuite.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
+
+            migrationBuilder.DropTable(
+                name: "Especies");
+
+            migrationBuilder.DropTable(
+                name: "Estudios");
+
+            migrationBuilder.DropTable(
+                name: "FotografiaArboles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

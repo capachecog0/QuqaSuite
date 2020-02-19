@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuqaSuite.Data;
 
-namespace QuqaSuite.Data.Migrations
+namespace QuqaSuite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200217210447_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,6 +303,78 @@ namespace QuqaSuite.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("QuqaSuite.Models.Arbol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Altura")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Barrio")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<double>("Biomasa")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Dap")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Distrito")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("EspecieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EstudioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Macrodistrito")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("fotografiaArbolId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EspecieId");
+
+                    b.HasIndex("EstudioId");
+
+                    b.HasIndex("fotografiaArbolId");
+
+                    b.ToTable("Arboles");
+                });
+
+            modelBuilder.Entity("QuqaSuite.Models.Especie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FormulaBiomasa")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("NombreCientifico")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("NombreComun")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Especies");
+                });
+
             modelBuilder.Entity("QuqaSuite.Models.Estudio", b =>
                 {
                     b.Property<int>("Id")
@@ -308,13 +382,32 @@ namespace QuqaSuite.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.Property<string>("NombreEstudio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.ToTable("Estudios");
+                });
+
+            modelBuilder.Entity("QuqaSuite.Models.FotografiaArbol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DataUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FotografiaArboles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -366,6 +459,21 @@ namespace QuqaSuite.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("QuqaSuite.Models.Arbol", b =>
+                {
+                    b.HasOne("QuqaSuite.Models.Especie", "Especie")
+                        .WithMany()
+                        .HasForeignKey("EspecieId");
+
+                    b.HasOne("QuqaSuite.Models.Estudio", null)
+                        .WithMany("Especimenes")
+                        .HasForeignKey("EstudioId");
+
+                    b.HasOne("QuqaSuite.Models.FotografiaArbol", "fotografiaArbol")
+                        .WithMany()
+                        .HasForeignKey("fotografiaArbolId");
                 });
 #pragma warning restore 612, 618
         }

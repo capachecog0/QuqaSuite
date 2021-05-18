@@ -5,6 +5,7 @@ import { Pagination, ButtonGroup, Button } from "reactstrap";
 import { DatosArbolForm } from "./DatosGenerales";
 import MedicionesArbol, { TreeMeasurementLines } from "./MedicionesArbol";
 import ResultadosArbol from "./ResultadosArbol";
+import { RouteProps, RouteComponentProps } from "react-router-dom";
 
 enum PasoFormulario {
   DatosArbol = 0,
@@ -12,7 +13,12 @@ enum PasoFormulario {
   Resultado
 }
 
-type Props = FormikProps<ArbolViewModel>;
+interface IRouteParams {
+  id: string,
+  idPunto: string
+}
+
+type Props = FormikProps<ArbolViewModel> & RouteComponentProps<IRouteParams>;
 
 interface IState {
   pasoActual: PasoFormulario;
@@ -93,7 +99,7 @@ class ArbolForm extends Component<Props, IState> {
   };
 }
 
-export default withFormik<{}, ArbolViewModel>({
+export default withFormik<RouteComponentProps<IRouteParams>, ArbolViewModel>({
   handleSubmit: () => {}
 })(ArbolForm);
 

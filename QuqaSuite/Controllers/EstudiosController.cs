@@ -32,7 +32,11 @@ namespace QuqaSuite.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Estudio>> GetEstudio(int id)
         {
-            var estudio = await _context.Estudios.FindAsync(id);
+            var estudio = await _context.Estudios
+                .Where(e => e.Id == id)                
+                .Include(e => e.puntosMuestreo)
+                .ThenInclude(e => e.Especimenes)
+                .FirstOrDefaultAsync();
 
             if (estudio == null)
             {

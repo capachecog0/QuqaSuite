@@ -9,7 +9,7 @@ using QuqaSuite.Models;
 
 namespace QuqaSuite.Controllers
 {
-    [Route("api/estudios/{estudioId}/[controller]")]
+    [Route("api/estudios/{estudioId}/puntos/{puntoId}/[controller]")]
     [ApiController]
     public class ArbolesController : ControllerBase
     {
@@ -36,9 +36,11 @@ namespace QuqaSuite.Controllers
 
         // POST: api/Arboles
         [HttpPost]
-        public async Task<ActionResult<Arbol>> Post(int estudioId, [FromBody] Arbol arbol)
+        public async Task<ActionResult<Arbol>> Post(int estudioId, int puntoId, [FromBody] Arbol arbol)
         {
-            context.Arboles.Add(arbol);
+            var punto = await context.PuntosMuestreo.FindAsync(puntoId);
+            punto.Especimenes.Add(arbol);
+            
             await context.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = arbol.Id }, arbol);
         }

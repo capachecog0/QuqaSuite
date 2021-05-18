@@ -18,14 +18,14 @@ namespace QuqaSuite.Seed
 
         public void Seed()
         {
-            dbContext.Estudios.RemoveRange(dbContext.Estudios);
-            dbContext.SaveChanges();
+            //dbContext.Estudios.RemoveRange(dbContext.Estudios);
+            //dbContext.SaveChanges();
 
-            dbContext.Estudios.AddRange(
-                new Estudio("Achumani") { Descripcion = "Muestreo Zona de Achumani" },
-                new Estudio("Irpavi") { Descripcion = "Muestreo Zona de Irpavi" });
+            //dbContext.Estudios.AddRange(
+              //  new Estudio("Achumani") { Descripcion = "Muestreo Zona de Achumani", SuperficieTotal = 144.77 },
+                //new Estudio("Irpavi") { Descripcion = "Muestreo Zona de Irpavi", SuperficieTotal = 135.74 });
 
-            dbContext.SaveChanges();
+            //dbContext.SaveChanges();
         }
     }
 }

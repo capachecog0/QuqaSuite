@@ -15,7 +15,9 @@ namespace QuqaSuite.Models
         [MaxLength(200)]
         public String Descripcion { get; set; }
 
-        public ICollection<Arbol> Especimenes { get; set; } = new List<Arbol>();
+        public double SuperficieTotal { get; set; }
+
+        public ICollection<PuntoMuestreo> puntosMuestreo { get; set; } = new List<PuntoMuestreo>();        
 
         public Estudio(string nombreEstudio)
         {

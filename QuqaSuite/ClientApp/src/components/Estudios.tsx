@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { ListGroup, ListGroupItem, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap'
 import { Link } from 'react-router-dom';
@@ -22,10 +22,10 @@ export default function Estudios() {
     <Card>
       <CardBody>
         <CardTitle tag="h5">
-          Quqa Suite
+          Estudios Disponibles
         </CardTitle>
         <CardText>
-          Bienvenid@ a Quqa, por favor seleccione el estudio en el que desa trabajar
+          Bienvenid@ a Quqa, por favor seleccione el estudio en el que desea trabajar
         </CardText>
       </CardBody>  
       <ListGroup>

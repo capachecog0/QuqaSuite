@@ -22,5 +22,7 @@ namespace QuqaSuite.Data
         public DbSet<Arbol> Arboles { get; set; }
         public DbSet<Especie> Especies { get; set; }
         public DbSet<FotografiaArbol> FotografiaArboles { get; set; }
+        public DbSet<PuntoMuestreo> PuntosMuestreo { get; set; }
+
     }
 }

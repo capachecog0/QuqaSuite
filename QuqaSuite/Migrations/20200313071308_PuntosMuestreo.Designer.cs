@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuqaSuite.Data;
 
 namespace QuqaSuite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200313071308_PuntosMuestreo")]
+    partial class PuntosMuestreo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,6 +330,9 @@ namespace QuqaSuite.Migrations
                     b.Property<int?>("EspecieId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EstudioId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("FotografiaArbolId")
                         .HasColumnType("int");
 
@@ -335,16 +340,13 @@ namespace QuqaSuite.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PuntoMuestreoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EspecieId");
 
-                    b.HasIndex("FotografiaArbolId");
+                    b.HasIndex("EstudioId");
 
-                    b.HasIndex("PuntoMuestreoId");
+                    b.HasIndex("FotografiaArbolId");
 
                     b.ToTable("Arboles");
                 });
@@ -387,9 +389,6 @@ namespace QuqaSuite.Migrations
                     b.Property<string>("NombreEstudio")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
-
-                    b.Property<double>("SuperficieTotal")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -491,13 +490,13 @@ namespace QuqaSuite.Migrations
                         .WithMany()
                         .HasForeignKey("EspecieId");
 
+                    b.HasOne("QuqaSuite.Models.Estudio", null)
+                        .WithMany("Especimenes")
+                        .HasForeignKey("EstudioId");
+
                     b.HasOne("QuqaSuite.Models.FotografiaArbol", "FotografiaArbol")
                         .WithMany()
                         .HasForeignKey("FotografiaArbolId");
-
-                    b.HasOne("QuqaSuite.Models.PuntoMuestreo", null)
-                        .WithMany("Especimenes")
-                        .HasForeignKey("PuntoMuestreoId");
                 });
 
             modelBuilder.Entity("QuqaSuite.Models.PuntoMuestreo", b =>

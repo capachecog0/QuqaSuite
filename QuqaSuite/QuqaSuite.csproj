@@ -32,17 +32,30 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\components\Counter.tsx" />
+    <None Remove="ClientApp\src\components\Especies\EspecieForm.tsx" />
+    <None Remove="ClientApp\src\components\Especies\EspeciesHome.tsx" />
     <None Remove="ClientApp\src\components\Estudios.tsx" />
+    <None Remove="ClientApp\src\models\ArbolDto.ts" />
+    <None Remove="ClientApp\src\models\EspecieDto.ts" />
+    <None Remove="ClientApp\src\models\FotografiaArbolDto.ts" />
+    <None Remove="ClientApp\src\models\PuntoMuestreo.ts" />
     <None Remove="ClientApp\tsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\components\Counter.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Especies\EspecieForm.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\Especies\EspeciesHome.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\Estudios.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\models\ArbolDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\EspecieDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\FotografiaArbolDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\PuntoMuestreo.ts" />
     <TypeScriptCompile Include="ClientApp\tsconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\api\PuntosMuestreo\" />
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 

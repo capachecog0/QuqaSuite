@@ -5,9 +5,15 @@ import { FormikProps } from "formik";
 import { ArbolViewModel } from "./ArbolViewModel";
 import { Button } from "reactstrap";
 import Axios from "axios";
+import { RouteComponentProps } from "react-router-dom";
+
+interface IRouteParams {
+  id: string,
+  idPunto: string
+}
 
 
-type ResultadosArbolProps = FormikProps<ArbolViewModel> 
+type ResultadosArbolProps = FormikProps<ArbolViewModel> & RouteComponentProps<IRouteParams>;
 
 export default class ResultadosArbol extends Component<ResultadosArbolProps> {
   public render() {
@@ -40,9 +46,9 @@ export default class ResultadosArbol extends Component<ResultadosArbolProps> {
         }
       }
 
-      
+      const { id, idPunto }= this.props.match.params;
 
-      const result = await Axios.post("/api/estudios/1/arboles", arbolUpload);
+      const result = await Axios.post(`/api/estudios/${id}/puntos/${idPunto}/arboles`, arbolUpload);
       alert("Especimen registrado exitosamente");
       window.history.back();
     }  
